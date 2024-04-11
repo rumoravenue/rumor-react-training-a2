@@ -2,11 +2,7 @@ import React from 'react'
 // import countries from './data/countries.json';
 
 function Card(props:any) {
-    // const countryFlag=countries.map((item)=>{
-    //     return(
-            
-    //     )
-    // })
+
   return (
     <div key ={props.currency}  className="card--ui">
         <div className="card-flag">
