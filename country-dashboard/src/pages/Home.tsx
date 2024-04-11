@@ -12,7 +12,9 @@ import loadingPng from "../Loading State.png";
 const Home = () => {
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(true);
+
   const [searchValue, setSearchValue] = useState<string>("");
+  const [searchData, setSearchData] = useState<any[]>([]);
   const [allCountries, setAllCountries] = useState<Data[]>([]);
   const [selectedCurrency, setSelectedCurrency] =
     useState<string>("Any Currency");
@@ -35,7 +37,8 @@ const Home = () => {
           url = `${baseUrl}/name/${searchValue}`;
           const response = await fetch(url);
           const data = await response.json();
-          setAllCountries(data);
+          setSearchData(data);
+
           setLoader(false);
         } else if (selectedCurrency !== "Any Currency") {
           setLoader(true);
@@ -149,13 +152,22 @@ const Home = () => {
             <div key={index}>
               <img src={country.flags?.png} alt={country.flags?.alt} />
               <h2>{country.name.common}</h2>
-              <p>Population {country.population}</p>
-              <p>Region {country.region}</p>
-              <p>Capital {country.capital}</p>
-              <p>Capital {country.capital}</p>
+              <p>Population: {country.population}</p>
+              <p>Region: {country.region}</p>
+              <p>Capital: {country.capital}</p>
             </div>
           ))
-        ) : null}
+        ) : (
+          searchData.map((country: Data, index: number) => (
+            <div key={index}>
+              <img src={country.flags?.png} alt={country.flags?.alt} />
+              <h2>{country.name.common}</h2>
+              <p>Population: {country.population}</p>
+              <p>Region: {country.region}</p>
+              <p>Capital: {country.capital}</p>
+            </div>
+          ))
+        )}
       </main>
     </div>
   );
