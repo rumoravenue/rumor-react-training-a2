@@ -1,4 +1,6 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
+import axios, { AxiosError } from "axios";
+import { BASE_URL } from "./api";
 
 // Define props
 interface CardsProps {
@@ -20,44 +22,46 @@ export const Cards: React.FC<CardsProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch data based on selected filters
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-      let url = "https://restcountries.com/v3.1/all";
-      if (searchValue) {
-        url = `https://restcountries.com/v3.1/name/${searchValue}`;
-      } else if (selectedCurrency) {
-        url = `https://restcountries.com/v3.1/currency/${selectedCurrency}`;
-      } else if (selectedLanguage) {
-        url = `https://restcountries.com/v3.1/lang/${selectedLanguage}`;
-      } else if (selectedRegion) {
-        url = `https://restcountries.com/v3.1/region/${selectedRegion}`;
-      }
-
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          if (response.status === 404) {
-            setFilteredCountries([]);
-            setError("No country found");
-          } else {
-            throw new Error("Failed to fetch data");
-          }
-        } else {
-          const data = await response.json();
-          setFilteredCountries(data);
-        }
-      } catch (error) {
+  const fetchData = () => {
+    setLoading(true);
+    setError(null);
+    let url = BASE_URL + "all";
+    if (searchValue) {
+      url = BASE_URL + `name/${searchValue}`;
+    } else if (selectedCurrency) {
+      url = BASE_URL + `currency/${selectedCurrency}`;
+    } else if (selectedLanguage) {
+      url = BASE_URL + `lang/${selectedLanguage}`;
+    } else if (selectedRegion) {
+      url = BASE_URL + `region/${selectedRegion}`;
+    }
+  
+    axios
+      .get(url)
+      .then(response => {
+        const data = response.data;
+        setFilteredCountries(data);
+      })
+      .catch(error => {
         console.error("Error fetching data:", error);
-        setError("Error fetching data");
-      } finally {
+        if (error.response && error.response.status === 404) {
+          setFilteredCountries([]);
+          setError("No country found");
+        } else {
+          setError("Error fetching data");
+        }
+      })
+      .finally(() => {
         setLoading(false);
-      }
-    };
+      });
+  };
+  
+  useEffect(() => {
+    const timeoutId = setTimeout(fetchData, 300);
 
-    fetchData();
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [selectedCurrency, selectedLanguage, selectedRegion, searchValue]);
 
   return (
