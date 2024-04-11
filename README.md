@@ -91,8 +91,19 @@ In this section, you will implement storing state and interacting with APIs.
 - When I search by the exact name of a country (i.e Canada), I should only see that country.
 
 
-## Part 3: Adding styling, routing and refactoring
-Coming soon!
+## Part 3: Adding styling
+Complete this part after completing **Module 6: Styling with React**. 
 
-## Part 4: Incorporating the Storyblok CMS
+In this section, you will use Chakra UI to implement styling following the Figma above. 
+
+### Requirements
+- Text should use Chakra UI
+- Input fields should use Chakra UI
+- Dark Mode selector should use Chakra UI
+- The country cards should use Chakra UI
+- The flag images should have the correct aspect ratio.
+
+## Part 4: Adding routing
+
+## Part 5: Incorporating the Storyblok CMS
 Coming soon!
