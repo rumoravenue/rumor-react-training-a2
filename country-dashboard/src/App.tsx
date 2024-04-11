@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export const App = () => {
   // Countries state to store the array of countries
-  const [countries, setCountries] = useState<any[]>([]);
+  const [countries, setCountries] = useState<any[]>([]);     
 
   // state to store currency array
   const [curr, setCurr] = useState<any[]>([]);
