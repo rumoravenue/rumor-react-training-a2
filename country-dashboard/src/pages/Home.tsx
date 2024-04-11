@@ -10,20 +10,32 @@ import { Data } from "../dataTypes/index";
 import loadingPng from "../Loading State.png";
 
 const Home = () => {
+  // State for dark mode
   const [darkMode, setDarkMode] = useState<boolean>(false);
+  // State for loading indicator
   const [loader, setLoader] = useState<boolean>(true);
 
+  // State for search input
   const [searchValue, setSearchValue] = useState<string>("");
+  // State for search results
   const [searchData, setSearchData] = useState<any[]>([]);
+  // State for all countries
   const [allCountries, setAllCountries] = useState<Data[]>([]);
+  // State for selected currency
   const [selectedCurrency, setSelectedCurrency] =
     useState<string>("Any Currency");
+  // State for selected language
   const [selectedLanguage, setSelectedLanguage] =
     useState<string>("Any Language");
+  // State for selected region
   const [selectedRegion, setSelectedRegion] = useState<string>("Any Region");
+
+  // Options for dropdowns
   const currencyOptions = Object.keys(currency);
   const languageOptions = Object.keys(language);
   const baseUrl = "https://restcountries.com/v3.1/";
+
+  // Fetch data on component mount and when dependencies change
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,13 +44,14 @@ const Home = () => {
         const data = await response.json();
         setAllCountries(data);
         setLoader(false);
+
+        // Conditionally fetch data based on search or filter criteria
         if (searchValue !== "") {
           setLoader(true);
           url = `${baseUrl}/name/${searchValue}`;
           const response = await fetch(url);
           const data = await response.json();
           setSearchData(data);
-
           setLoader(false);
         } else if (selectedCurrency !== "Any Currency") {
           setLoader(true);
@@ -70,6 +83,7 @@ const Home = () => {
     fetchData();
   }, [searchValue, selectedCurrency, selectedLanguage, selectedRegion]);
 
+  // Event handlers
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchValue(value);
@@ -94,6 +108,7 @@ const Home = () => {
     setSelectedRegion(value);
   };
 
+  // JSX
   return (
     <div className={`container ${darkMode ? "dark-mode" : ""}`}>
       <div>
