@@ -33,7 +33,7 @@ input[type="text"] {
   gap: 20px;
   width: 80%;
   justify-content: space-between;
-  padding: 0 10%;
+  padding:  2% 9.5%;
 }
 
 .card {
@@ -64,3 +64,12 @@ input[type="text"] {
   width: 0;
   background: transparent;
 }
+.button{
+  color: red;
+  font-size: small;
+  font-weight: bolder;
+  text-align: end;
+  padding-right: 12%;
+  margin-top: -2%;
+  cursor: pointer; 
+  }

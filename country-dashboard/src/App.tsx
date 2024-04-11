@@ -1,17 +1,13 @@
-import './App.css';
-import { Header } from './Component/Header';
-import { Navbar } from './Component/Navbar';
-import { Cards } from './Component/Card';
+import React, { useState } from "react";
+import { Main } from "./Main";
 
-export const App = () => {
+const App: React.FC = () => {
 
   return (
     <div className="App">
-     <Header/>
-     <Navbar/>
-     <Cards/>
+      <Main/>
     </div>
   );
-}
+};
 
 export default App;
