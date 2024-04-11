@@ -57,7 +57,7 @@ main {
   margin: 2rem 2rem 1rem 2rem;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  gap: 1rem;
 }
 main div img {
   width: 90%;
@@ -81,4 +81,10 @@ main div h2 {
 main div p {
   margin: 4px 0px 4px 0px;
   font-weight: 400;
+}
+#loader {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
 }

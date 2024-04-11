@@ -5,7 +5,7 @@ const SearchBar = ({
   id,
   onChange,
 }: {
-  id:string
+  id: string;
   type: string;
   placeholder: string;
   value: string;
@@ -13,7 +13,7 @@ const SearchBar = ({
 }) => {
   return (
     <input
-    id={id}
+      id={id}
       type={type}
       placeholder={placeholder}
       value={value}

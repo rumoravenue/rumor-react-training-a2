@@ -1,41 +1,101 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import currency from "../data/currency-codes.json";
 import language from "../data/language-codes.json";
 import region from "../data/regions.json";
-import countries from "../data/countries.json";
 import SearchBar from "../components/searchBar";
 import SelectOptions from "../components/selectOptions";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 import "../style/Home.css";
+import { Data } from "../dataTypes/index";
+import loadingPng from "../Loading State.png";
 
 const Home = () => {
-  // Define options for currency and language selection
+  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [loader, setLoader] = useState<boolean>(true);
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [allCountries, setAllCountries] = useState<Data[]>([]);
+  const [selectedCurrency, setSelectedCurrency] =
+    useState<string>("Any Currency");
+  const [selectedLanguage, setSelectedLanguage] =
+    useState<string>("Any Language");
+  const [selectedRegion, setSelectedRegion] = useState<string>("Any Region");
   const currencyOptions = Object.keys(currency);
   const languageOptions = Object.keys(language);
+  const baseUrl = "https://restcountries.com/v3.1/";
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let url = `${baseUrl}/all`;
+        const response = await fetch(url);
+        const data = await response.json();
+        setAllCountries(data);
+        setLoader(false);
+        if (searchValue !== "") {
+          setLoader(true);
+          url = `${baseUrl}/name/${searchValue}`;
+          const response = await fetch(url);
+          const data = await response.json();
+          setAllCountries(data);
+          setLoader(false);
+        } else if (selectedCurrency !== "Any Currency") {
+          setLoader(true);
+          url = `${baseUrl}/currency/${selectedCurrency}`;
+          const response = await fetch(url);
+          const data = await response.json();
+          setAllCountries(data);
+          setLoader(false);
+        } else if (selectedLanguage !== "Any Language") {
+          setLoader(true);
+          url = `${baseUrl}/lang/${selectedLanguage}`;
+          const response = await fetch(url);
+          const data = await response.json();
+          setAllCountries(data);
+          setLoader(false);
+        } else if (selectedRegion !== "Any Region") {
+          setLoader(true);
+          url = `${baseUrl}/region/${selectedRegion}`;
+          const response = await fetch(url);
+          const data = await response.json();
+          setAllCountries(data);
+          setLoader(false);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-  // State for search input value and dark mode
-  const [searchValue, setSearchValue] = useState<string>("");
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+    fetchData();
+  }, [searchValue, selectedCurrency, selectedLanguage, selectedRegion]);
 
-  // Handle search input change
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchValue(value);
   };
 
-  // Toggle dark mode
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
 
+  const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSelectedCurrency(value);
+  };
+
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSelectedLanguage(value);
+  };
+
+  const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSelectedRegion(value);
+  };
+
   return (
-    // Container with conditional dark mode class
     <div className={`container ${darkMode ? "dark-mode" : ""}`}>
-      {/* Section for toggling dark mode */}
       <div>
         <h3>Countries</h3>
         <p>
-          {/* Dark mode switch component */}
           <DarkModeSwitch
             checked={darkMode}
             onChange={toggleDarkMode}
@@ -43,10 +103,8 @@ const Home = () => {
           />
         </p>
       </div>
-      {/* Header section with search bar and select options */}
       <header>
         <div>
-          {/* Search bar component */}
           <SearchBar
             id="searchBar"
             type="text"
@@ -56,56 +114,48 @@ const Home = () => {
           />
         </div>
         <div>
-          {/* Select options for currency */}
           <SelectOptions
-            defaultvalue="Any Currency"
+            onChange={handleCurrencyChange}
+            defaultValue={selectedCurrency}
             name="currency"
             id="currency"
             options={currencyOptions}
           />
         </div>
         <div>
-          {/* Select options for language */}
           <SelectOptions
-            defaultvalue="Any Language"
+            onChange={handleLanguageChange}
+            defaultValue={selectedLanguage}
             name="anyLanguage"
             id="anyLanguage"
             options={languageOptions}
           />
         </div>
         <div>
-          {/* Select options for region */}
           <SelectOptions
-            defaultvalue="Any Region"
+            onChange={handleRegionChange}
+            defaultValue={selectedRegion}
             name="anyRegion"
             id="anyRegion"
             options={region.map((region) => region)}
           />
         </div>
       </header>
-      {/* Main section for displaying country information */}
       <main>
-        {/* Iterate over countries and display information */}
-        {countries?.map((data, index) => (
-          <div key={index}>
-            {/* Country flag */}
-            <img src={data.flags.png} alt={data.flags.alt} />
-            {/* Country name */}
-            <h2>{data.name.common}</h2>
-            {/* Population */}
-            <p>Population {data.population}</p>
-            {/* Region */}
-            <p>Region {data.region}</p>
-            {/* Capital */}
-            <p>Capital {data.capital}</p>
-            {/* Currency */}
-            <p>
-              Currency{" "}
-              {data.currencies &&
-                Object.entries(data.currencies).map(([item, index]) => item)}
-            </p>
-          </div>
-        ))}
+        {loader ? (
+          <img src={loadingPng} alt="Loading..." id="loader" />
+        ) : searchValue === "" ? (
+          allCountries.map((country: Data, index: number) => (
+            <div key={index}>
+              <img src={country.flags?.png} alt={country.flags?.alt} />
+              <h2>{country.name.common}</h2>
+              <p>Population {country.population}</p>
+              <p>Region {country.region}</p>
+              <p>Capital {country.capital}</p>
+              <p>Capital {country.capital}</p>
+            </div>
+          ))
+        ) : null}
       </main>
     </div>
   );

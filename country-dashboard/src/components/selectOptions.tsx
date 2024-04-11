@@ -1,20 +1,27 @@
+import React from "react";
+
 const SelectOptions = ({
   name,
   id,
   options,
-  defaultvalue
-
+  defaultValue,
+  onChange,
 }: {
   name: string;
   id: string;
   options: string[];
-  defaultvalue:string
+  defaultValue: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }) => {
   return (
     <>
-      
-      <select name={name} id={id}>
-      <option>{defaultvalue}</option>
+      <select
+        name={name}
+        id={id}
+        defaultValue={defaultValue}
+        onChange={onChange}
+      >
+        <option>{defaultValue}</option>
         {options.map((option, index) => (
           <option key={index} value={option}>
             {option}
@@ -24,4 +31,5 @@ const SelectOptions = ({
     </>
   );
 };
+
 export default SelectOptions;
