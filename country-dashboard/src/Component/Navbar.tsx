@@ -96,7 +96,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <div>
-      // Navbar component
       <div className="Nav-Container">
         <div className="inputs">
           <input type="text" placeholder="Search..." onChange={handleSearch} />
