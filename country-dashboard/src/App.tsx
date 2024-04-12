@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export const App = () => {
   // Countries state to store the array of countries
-  const [countries, setCountries] = useState<any[]>([]);     
+  const [countries, setCountries] = useState<any[]>([]);
 
   // state to store currency array
   const [curr, setCurr] = useState<any[]>([]);
@@ -19,11 +19,11 @@ export const App = () => {
   // state for the search field to filter
   const [search, setSearch] = useState("");
   // state for the currency field to filter
-  const [currency, setCurrency] = useState("");
+  const [currency, setCurrency] = useState("Any Currency");
   // state for the search field to filter
-  const [language, setLanguage] = useState("");
+  const [language, setLanguage] = useState("Any Language");
   // state for the search field to filter
-  const [reg, setregion] = useState("");
+  const [reg, setregion] = useState("Any Region");
 
   // function to get  the countires , currencies , languages , region
   useEffect(() => {
@@ -172,7 +172,11 @@ export const App = () => {
         population={item.population}
         region={item.region}
         capital={item.capital}
-        currency={item.cca3}
+        currency={
+          item.currencies && Object.keys(item.currencies).length > 0
+            ? Object.keys(item.currencies)[0]
+            : null // or any other value you want to use for empty currencies
+        }
       />
     );
   });
