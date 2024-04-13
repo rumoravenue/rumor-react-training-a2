@@ -18,7 +18,7 @@ const Home = () => {
   // State for search input
   const [searchValue, setSearchValue] = useState<string>("");
   // State for search results
-  const [searchData, setSearchData] = useState<any[]>([]);
+  const [searchData, setSearchData] = useState<Data[]>([]);
   // State for all countries
   const [allCountries, setAllCountries] = useState<Data[]>([]);
   // State for selected currency
@@ -170,6 +170,13 @@ const Home = () => {
               <p>Population: {country.population}</p>
               <p>Region: {country.region}</p>
               <p>Capital: {country.capital}</p>
+              <p>
+                Currency{" "}
+                {country.currencies &&
+                  Object.entries(country.currencies).map(
+                    ([item, index]) => item
+                  )}
+              </p>
             </div>
           ))
         ) : (
@@ -180,6 +187,13 @@ const Home = () => {
               <p>Population: {country.population}</p>
               <p>Region: {country.region}</p>
               <p>Capital: {country.capital}</p>
+              <p>
+                Currency{" "}
+                {country.currencies &&
+                  Object.entries(country.currencies).map(
+                    ([item, index]) => item
+                  )}
+              </p>
             </div>
           ))
         )}

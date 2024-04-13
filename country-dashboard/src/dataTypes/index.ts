@@ -2,9 +2,9 @@
     name: { common: string };
     flags:{png:string,alt:string}
     population: number;
-    region: string; // Corrected spelling from "resion" to "region"
+    region: string; 
     capital: string;
-    currencies:string
+    currencies:{[key:string]:string}
 }
 
 
