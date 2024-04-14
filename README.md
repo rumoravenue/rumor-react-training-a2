@@ -104,6 +104,24 @@ In this section, you will use Chakra UI to implement styling following the Figma
 - The flag images should have the correct aspect ratio.
 
 ## Part 4: Adding routing
+Complete this part after completing **Module 7: Routing with React**.
+
+In this section, you will add routing to display multiple pages in our React app. 
+
+The first page is the search page, which will be at the `/` route. 
+![alt text](image.png)
+
+The second page is the country page, which will be stored at the `/:countryCode` route, where `:countryCode` is a path parameter is the [Alpha-2 Country Code](https://www.iban.com/country-codes).
+![alt text](image-1.png)
+
+The back button on the top left of the country page should take you back to the `/` route. 
+
+### Requirements
+- Search page served at `/`
+- Country page served at `/:countryCode` where `:countryCode` is the [Alpha-2 Country Code](https://www.iban.com/country-codes).
+![alt text](image-1.png)
+- Back button should route to `/`
+
 
 ## Part 5: Incorporating the Storyblok CMS
 Coming soon!
