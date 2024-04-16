@@ -10,9 +10,15 @@ export const Main: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = React.useState<string | null>(null);
   const [searchValue, setSearchValue] = useState<string>("");
 
+  const [darkMode, setDarkMode] = useState(false);
+
+  const handleToggleMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
-    <div className="App">
-      <Header />
+    <div className={`app ${darkMode ? "dark-mode" : ""}`}>
+    <Header handleToggleMode={handleToggleMode} darkMode={darkMode} />
       <Navbar 
         setSelectedCurrency={setSelectedCurrency}
         setSelectedLanguage={setSelectedLanguage}
@@ -29,4 +35,5 @@ export const Main: React.FC = () => {
     </div>
   );
 };
+
 

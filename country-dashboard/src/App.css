@@ -1,7 +1,7 @@
 .title {
   font-size: x-large;
   font-weight: bold;
-  margin-top: 42px;
+  padding-top: 42px;
   margin-bottom: 7px;
   padding-left: 10%;
 }
@@ -73,3 +73,46 @@ input[type="text"] {
   margin-top: -2%;
   cursor: pointer; 
   }
+
+  .app.dark-mode {
+    background-color: #000;
+    color: #fff;
+  }
+  
+  .toggle-mode {
+    position: absolute;
+    top: 11%;
+    right: 11%; 
+    transform: translateY(-50%);
+    width: 1.875rem; 
+    height: 1.875rem;
+    cursor: pointer;
+  }
+  
+  .sun-icon,
+  .moon-icon {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .toggle-mode .sun-icon,
+  .toggle-mode .moon-icon {
+    position: absolute;
+    top: 5%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .toggle-mode .moon-icon {
+    display: none;
+  }
+  
+  .toggle-mode.active .sun-icon {
+    display: none;
+  }
+  
+  .toggle-mode.active .moon-icon {
+    display: block;
+  }
+  
