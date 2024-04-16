@@ -1,17 +1,23 @@
-import './App.css';
-import { Header } from './Component/Header';
-import { Navbar } from './Component/Navbar';
-import { Cards } from './Component/Card';
+import React, { useState } from "react";
+import { Header } from "./Component/Header";
+import { Cards } from "./Component/Card";
+import { Navbar } from "./Component/Navbar";
+import "./App.css";
 
-export const App = () => {
+const App: React.FC = () => {
+  const [darkMode, setDarkMode] = useState(false);
+
+  const handleToggleMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   return (
-    <div className="App">
-     <Header/>
-     <Navbar/>
-     <Cards/>
+    <div className={`app ${darkMode ? "dark-mode" : ""}`}>
+      <Header handleToggleMode={handleToggleMode} darkMode={darkMode} />
+      <Navbar />
+      <Cards />
     </div>
   );
-}
+};
 
 export default App;

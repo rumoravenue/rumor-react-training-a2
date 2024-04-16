@@ -1,7 +1,22 @@
 import React from "react";
-import "../App.css";
+import { FaSun, FaMoon } from "react-icons/fa";
 
-export const Header: React.FC = () => {
-    // Render the title "Countries"
-    return <div className="title">Countries</div>;
+interface HeaderProps {
+  handleToggleMode: () => void;
+  darkMode: boolean;
+}
+
+export const Header: React.FC<HeaderProps> = ({ handleToggleMode, darkMode }) => {
+  return (
+    <div className="header-container">
+      <div className="title">Countries</div>
+      <div className="toggle-mode" onClick={handleToggleMode}>
+        {darkMode ? (
+          <FaSun className="icon" style={{ color: "#fff" }} />
+        ) : (
+          <FaMoon className="icon" style={{ color: "#000" }} />
+        )}
+      </div>
+    </div>
+  );
 };
