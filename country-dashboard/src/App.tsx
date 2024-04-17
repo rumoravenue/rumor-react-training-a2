@@ -1,28 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
-import countries from './data/countries.json';
+import React from "react";
+import { Box } from "@chakra-ui/react";
+import countries from "./data/countries.json";
+import Header from "./Components/Header";
+import Card from "./Components/Card";
 
 export const App = () => {
-  // countries holds a JSON array of the countries and their data which you can use
-  console.log(countries);
+  const countryBool = !countries || countries.length === 0;
+  const cardui = countries.map((item, index) => {
+    return (
+      <Card
+        key={index}
+        imgurl={item.flags.png}
+        countryname={item.name.common}
+        population={item.population}
+        region={item.region}
+        capital={item.capital}
+        currency={item.cca3}
+      />
+    );
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box px="8rem" width='100'>
+      <Header />
+      <Box className="main-Content" display='flex' flexWrap={'wrap'} rowGap={5} columnGap={4} mt='4rem'>
+        {countryBool ? <h1>Nothing Found</h1> : cardui}
+      </Box>
+    </Box>
   );
-}
+};
 
 export default App;
