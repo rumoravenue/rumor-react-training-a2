@@ -1,3 +1,5 @@
+import { Input } from "@chakra-ui/react";
+
 const SearchBar = ({
   type,
   placeholder,
@@ -9,10 +11,11 @@ const SearchBar = ({
   type: string;
   placeholder: string;
   value: string;
+
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
-    <input
+    <Input
       id={id}
       type={type}
       placeholder={placeholder}
