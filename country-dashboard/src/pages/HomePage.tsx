@@ -263,7 +263,16 @@ const HomePage = () => {
             ))
           ) : (
             searchData.map((country: Data, index: number) => (
-              <WrapItem key={index}>
+              <WrapItem
+                key={index}
+                flexDirection="column"
+                width={["100%", "100%", "19%", "19%"]}
+                border="1px"
+                borderColor="gray.200"
+                borderRadius="0.4rem"
+                bg={darkMode ? "gray.800" : "white"}
+                ml={".5rem"}
+              >
                 <Box>
                   <Image
                     src={country.flags?.png}
