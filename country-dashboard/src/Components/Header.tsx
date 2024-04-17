@@ -9,15 +9,19 @@ import {
   Select,
 } from "@chakra-ui/react";
 import React from "react";
+import { useColorMode, Button } from "@chakra-ui/react";
 
 function Header() {
+
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <>
       <Flex align="center" justify="space-between">
         <Text fontFamily="Inter" fontWeight="700" fontSize="2rem">
           Countries
         </Text>
-        <Icon>
+        <Icon onClick={toggleColorMode} cursor='pointer'>
+        {colorMode === "light" ? "Dark" : "Light"}
           <svg
             width="16"
             height="16"

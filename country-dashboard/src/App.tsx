@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Center } from "@chakra-ui/react";
 import countries from "./data/countries.json";
 import Header from "./Components/Header";
 import Card from "./Components/Card";
@@ -21,9 +21,17 @@ export const App = () => {
   });
 
   return (
-    <Box px="8rem" width='100'>
+    <Box px="8rem" width="100" pt='3rem'>
       <Header />
-      <Box className="main-Content" display='flex' flexWrap={'wrap'} rowGap={5} columnGap={4} mt='4rem'>
+      <Box
+        className="main-Content"
+        display="flex"
+        flexWrap={"wrap"}
+        rowGap={5}
+        columnGap={4}
+        mt="4rem"
+        justifyContent="space-between"
+      >
         {countryBool ? <h1>Nothing Found</h1> : cardui}
       </Box>
     </Box>
