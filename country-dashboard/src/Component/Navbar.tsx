@@ -2,7 +2,8 @@ import React, { useMemo, useCallback, useState } from "react";
 import CurrencyData from "../data/currency-codes.json";
 import LanguageData from "../data/language-codes.json";
 import RegionData from "../data/regions.json";
-// Define props
+import { Flex, Input, Select, Button, Text } from "@chakra-ui/react";
+
 interface NavbarProps {
   setSelectedCurrency: React.Dispatch<React.SetStateAction<string | null>>;
   setSelectedLanguage: React.Dispatch<React.SetStateAction<string | null>>;
@@ -17,7 +18,43 @@ export const Navbar: React.FC<NavbarProps> = ({
   setSearchValue,
 }) => {
   const [isFilterSelected, setIsFilterSelected] = useState(false);
-  // Memoized options for currency selection
+
+  const handleClear = () => {
+    window.location.reload();
+  };
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
+    setIsFilterSelected(true);
+  };
+
+  const handleCurrency = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const selectedCurrency = event.target.value;
+      setSelectedCurrency(selectedCurrency);
+      setIsFilterSelected(true);
+    },
+    [setSelectedCurrency]
+  );
+
+  const handleLanguage = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const selectedLanguage = event.target.value;
+      setSelectedLanguage(selectedLanguage);
+      setIsFilterSelected(true);
+    },
+    [setSelectedLanguage]
+  );
+
+  const handleRegion = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const selectedRegion = event.target.value;
+      setSelectedRegion(selectedRegion);
+      setIsFilterSelected(true);
+    },
+    [setSelectedRegion]
+  );
+
   const CurrencyOptions = useMemo(() => {
     return (
       <>
@@ -30,7 +67,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       </>
     );
   }, []);
-  // Memoized options for language selection
+
   const LanguageOptions = useMemo(() => {
     return (
       <>
@@ -43,7 +80,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       </>
     );
   }, []);
-  // Memoized options for region selection
+
   const RegionOptions = useMemo(
     () => (
       <>
@@ -57,65 +94,38 @@ export const Navbar: React.FC<NavbarProps> = ({
     ),
     []
   );
-  // Handle currency change
-  const handleCurrency = useCallback(
-    (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedCurrency = event.target.value;
-      setSelectedCurrency(selectedCurrency);
-      setIsFilterSelected(true);
-    },
-    [setSelectedCurrency]
-  );
-  // Handle language change
-  const handleLanguage = useCallback(
-    (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedLanguage = event.target.value;
-      setSelectedLanguage(selectedLanguage);
-      setIsFilterSelected(true);
-    },
-    [setSelectedLanguage]
-  );
-  // Handle region change
-  const handleRegion = useCallback(
-    (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedRegion = event.target.value;
-      setSelectedRegion(selectedRegion);
-      setIsFilterSelected(true);
-    },
-    [setSelectedRegion]
-  );
-  // Handle clear filters
-  const handleClear = () => {
-    window.location.reload();
-  };
-  // Handle search input change
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
-    setIsFilterSelected(true);
-  };
 
   return (
-    <div>
-      <div className="Nav-Container">
-        <div className="inputs">
-          <input type="text" placeholder="Search..." onChange={handleSearch} />
-        </div>
-        <div className="inputs">
-          <select onChange={handleCurrency}>{CurrencyOptions}</select>
-        </div>
-        <div className="inputs">
-          <select onChange={handleLanguage}>{LanguageOptions}</select>
-        </div>
-        <div className="inputs">
-          <select onChange={handleRegion}>{RegionOptions}</select>
-        </div>
-      </div>
-      {/* Display clear filters button if any filter is selected */}
+    <Flex direction="column" width="100%" alignItems="center" p="2%">
+      <Flex width="89%" justifyContent="space-between">
+        <Input
+          type="text"
+          placeholder="Search..."
+          onChange={handleSearch}
+          w="22%"
+        />
+        <Select onChange={handleCurrency} w="22%">
+          {CurrencyOptions}
+        </Select>
+        <Select onChange={handleLanguage} w="22%">
+          {LanguageOptions}
+        </Select>
+        <Select onChange={handleRegion} w="22%">
+          {RegionOptions}
+        </Select>
+      </Flex>
       {isFilterSelected && (
-        <div className="button" onClick={handleClear}>
+        <Text
+          alignSelf="flex-end"
+          color="red"
+          cursor="pointer"
+          onClick={handleClear}
+          mr="4rem"
+          fontWeight="bold"
+        >
           Clear Filters
-        </div>
+        </Text>
       )}
-    </div>
+    </Flex>
   );
 };

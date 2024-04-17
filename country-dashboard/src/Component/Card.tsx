@@ -1,8 +1,8 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { BASE_URL } from "./api";
+import { Box, Text, Image, Spinner, AspectRatio } from "@chakra-ui/react";
 
-// Define props
 interface CardsProps {
   selectedCurrency: string | null;
   selectedLanguage: string | null;
@@ -22,7 +22,7 @@ export const Cards: React.FC<CardsProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchData = () => {
+  const fetchData = async () => {
     setLoading(true);
     setError(null);
     let url = BASE_URL + "all";
@@ -35,27 +35,28 @@ export const Cards: React.FC<CardsProps> = ({
     } else if (selectedRegion) {
       url = BASE_URL + `region/${selectedRegion}`;
     }
-  
-    axios
-      .get(url)
-      .then(response => {
-        const data = response.data;
-        setFilteredCountries(data);
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-        if (error.response && error.response.status === 404) {
-          setFilteredCountries([]);
-          setError("No country found");
-        } else {
-          setError("Error fetching data");
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+
+    try {
+      const response = await axios.get(url);
+      const data = response.data;
+      setFilteredCountries(data);
+    } catch (error: any) {
+      console.error("Error fetching data:", error);
+      if (
+        axios.isAxiosError(error) &&
+        error.response &&
+        error.response.status === 404
+      ) {
+        setFilteredCountries([]);
+        setError("No country found");
+      } else {
+        setError("Error fetching data");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
-  
+
   useEffect(() => {
     const timeoutId = setTimeout(fetchData, 300);
 
@@ -65,35 +66,56 @@ export const Cards: React.FC<CardsProps> = ({
   }, [selectedCurrency, selectedLanguage, selectedRegion, searchValue]);
 
   return (
-    <div className="cards-container">
+    <Box
+      display="grid"
+      gridTemplateColumns="repeat(auto-fill, minmax(250px, 1fr))"
+      gap={4}
+      p="7%"
+      pt="0px"
+      mt="0px"
+    >
       {loading ? (
-        <p>Loading...</p>
+        <Spinner size="lg" />
       ) : error ? (
-        <p>{error}</p>
+        <Text>{error}</Text>
       ) : filteredCountries.length === 0 ? (
-        <p>No country found</p>
+        <Text>No country found</Text>
       ) : (
-        // Display filtered countries
         filteredCountries.map((country: any, index: number) => (
-          <div className="card" key={index}>
-            <img
-              src={country.flags.png}
-              alt={`Flag of ${country.name.common}`}
-            />
-            <div className="card-info">
-              <h3>{country.name.common}</h3>
-              <p>Population: {country.population.toLocaleString()}</p>
-              <p>Region: {country.region}</p>
-              <p>Capital: {country.capital}</p>
+          <Box
+            key={index}
+            borderWidth="1px"
+            borderRadius="lg"
+            h="auto"
+            w="250px"
+            overflow="hidden"
+          >
+           
+            <AspectRatio ratio={3.5/ 2}>
+              <Image
+                src={country.flags.png}
+                alt={`Flag of ${country.name.common}`}
+                objectFit="cover"
+                boxSize="100%"
+                p="5%"
+              />
+            </AspectRatio>
+            <Box p="4">
+              <Text fontSize="s" fontWeight={500}>
+                {country.name.common}
+              </Text>
+              <Text>Population: {country.population.toLocaleString()}</Text>
+              <Text>Region: {country.region}</Text>
+              <Text>Capital: {country.capital}</Text>
 
               {country.currencies &&
                 Object.entries(country.currencies).map(([code, currency]) => (
-                  <p key={code}>Currency: {code}</p>
+                  <Text key={code}>Currency: {code}</Text>
                 ))}
-            </div>
-          </div>
+            </Box>
+          </Box>
         ))
       )}
-    </div>
+    </Box>
   );
 };
