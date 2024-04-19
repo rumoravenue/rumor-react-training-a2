@@ -1,28 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
-import countries from './data/countries.json';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { SearchPage } from './SearchPage';
+import { CountryPage } from './CountryPage';
 
-export const App = () => {
-  // countries holds a JSON array of the countries and their data which you can use
-  console.log(countries);
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<SearchPage />} />
+        <Route path="/:countryCode" element={<CountryPage />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
+
+
+
