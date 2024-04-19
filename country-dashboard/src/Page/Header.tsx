@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Heading, useColorMode } from "@chakra-ui/react";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { ToggleIcon } from "../Component/ToggleIcon";
 
 export const Header: React.FC = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -17,7 +17,7 @@ export const Header: React.FC = () => {
         right="7%"
         transform="translateY(-50%)"
       >
-        <IconWithToggle
+        <ToggleIcon
           isDarkMode={isDarkMode}
           toggleColorMode={toggleColorMode}
         />
@@ -26,21 +26,3 @@ export const Header: React.FC = () => {
   );
 };
 
-const IconWithToggle: React.FC<{
-  isDarkMode: boolean;
-  toggleColorMode: () => void;
-}> = ({ isDarkMode, toggleColorMode }) => (
-  <>
-    {isDarkMode ? (
-      <FaSun
-        style={{ cursor: "pointer", marginLeft: "0.5rem" }}
-        onClick={toggleColorMode}
-      />
-    ) : (
-      <FaMoon
-        style={{ cursor: "pointer", marginLeft: "0.5rem" }}
-        onClick={toggleColorMode}
-      />
-    )}
-  </>
-);

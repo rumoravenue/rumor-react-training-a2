@@ -1,7 +1,8 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
 import axios from "axios";
-import { BASE_URL } from "./api";
+import { BASE_URL } from "../Component/api";
 import { Box, Text, Image, Spinner, AspectRatio } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 interface CardsProps {
   selectedCurrency: string | null;
@@ -21,6 +22,7 @@ export const Cards: React.FC<CardsProps> = ({
   const [filteredCountries, setFilteredCountries] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     setLoading(true);
@@ -56,7 +58,9 @@ export const Cards: React.FC<CardsProps> = ({
       setLoading(false);
     }
   };
-
+  const handleCardClick = (country: any) => {
+    navigate(`/${country.cca2}`, { state: { countryInfo: country } });
+  };
   useEffect(() => {
     const timeoutId = setTimeout(fetchData, 300);
 
@@ -89,9 +93,9 @@ export const Cards: React.FC<CardsProps> = ({
             h="auto"
             w="250px"
             overflow="hidden"
+            onClick={() => handleCardClick(country)}
           >
-           
-            <AspectRatio ratio={3.5/ 2}>
+            <AspectRatio ratio={3.5 / 2}>
               <Image
                 src={country.flags.png}
                 alt={`Flag of ${country.name.common}`}

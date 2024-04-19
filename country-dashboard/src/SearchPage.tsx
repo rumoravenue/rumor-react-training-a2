@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Header } from './Component/Header';
-import { Navbar } from './Component/Navbar';
-import { Cards } from './Component/Card';
+import { Header } from "./Page/Header";
+import { Navbar } from "./Page/Navbar";
+import { Cards } from "./Page/Card";
 
-export const Main: React.FC = () => {
-    // State variables 
+export const SearchPage: React.FC = () => {
   const [selectedCurrency, setSelectedCurrency] = React.useState<string | null>(null);
   const [selectedLanguage, setSelectedLanguage] = React.useState<string | null>(null);
   const [selectedRegion, setSelectedRegion] = React.useState<string | null>(null);
