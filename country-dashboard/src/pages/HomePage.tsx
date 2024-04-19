@@ -8,6 +8,7 @@ import {
   WrapItem,
   Image,
   IconButton,
+  Container,
 } from "@chakra-ui/react";
 import { FiSun, FiMoon } from "react-icons/fi";
 import currency from "../data/currency-codes.json";
@@ -17,8 +18,10 @@ import SearchBar from "../components/searchBar";
 import SelectOptions from "../components/selectOptions";
 import { Data } from "../dataTypes/index";
 import loadingPng from "../Loading State.png";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   // State for loading indicator
   const [loader, setLoader] = useState<boolean>(true);
   // State for dark mode
@@ -156,7 +159,7 @@ const HomePage = () => {
             bg={darkMode ? "black" : "white"}
             p="0.6rem"
             mb={["1rem", "1rem", "0", "0"]}
-            minW={["100%", "100%", "20rem", "20rem"]}
+            minW={["100%", "100%", "25%", "25%"]}
           >
             <SearchBar
               id="searchBar"
@@ -204,9 +207,8 @@ const HomePage = () => {
         </Flex>
         <Wrap
           as="main"
-          flexDirection="row"
+          flexDirection={["column", "column", "row", "row"]}
           w={["100%", "100%", "100%", "100%"]}
-          justifyContent="center"
         >
           {loader ? (
             <img src={loadingPng} alt="Loading..." id="loader" />
@@ -215,50 +217,55 @@ const HomePage = () => {
               <WrapItem
                 key={index}
                 flexDirection="column"
-                width={["100%", "100%", "19%", "19%"]}
+                width={["100%", "30%", "23%", "18.7%"]}
                 border="1px"
                 borderColor="gray.200"
                 borderRadius="0.4rem"
                 bg={darkMode ? "gray.800" : "white"}
                 ml={".5rem"}
+                transition="transform 0.3s ease"
+                _hover={{ bg: "gray.200", transform: "scale(1.05)" }}
+                onClick={() =>
+                  navigate(`/CountryDeatail/${country.name.common}`)
+                }
               >
-                <Box>
-                  <Image
-                    src={country.flags?.png}
-                    alt={country.flags?.alt}
-                    h="10rem"
-                    w="16rem"
-                    ml=".5rem"
-                    mt=".5rem"
-                  />
-                </Box>
-                <Box w="100%" h="100%" ml=".5rem" pb={".5rem"}>
-                  <Heading
-                    as="h3"
-                    fontSize="1.3rem"
-                    mt="1rem"
-                    mb="1rem"
-                    color={darkMode ? "white" : "black"}
-                  >
-                    {country.name.common}
-                  </Heading>
-                  <Text color={darkMode ? "white" : "black"}>
-                    Population: {country.population}
-                  </Text>
-                  <Text color={darkMode ? "white" : "black"}>
-                    Region: {country.region}
-                  </Text>
-                  <Text color={darkMode ? "white" : "black"}>
-                    Capital: {country.capital}
-                  </Text>
-                  <Text color={darkMode ? "white" : "black"}>
-                    Currency{" "}
-                    {country.currencies &&
-                      Object.entries(country.currencies).map(
-                        ([item, index]) => item
-                      )}
-                  </Text>
-                </Box>
+                <Container>
+                  <Box>
+                    <Image
+                      src={country.flags?.png}
+                      alt={country.flags?.alt}
+                      h="10rem"
+                      mt=".5rem"
+                    />
+                  </Box>
+                  <Box w="100%" h="100%" pb={".5rem"}>
+                    <Heading
+                      as="h3"
+                      fontSize="1.3rem"
+                      mt="1rem"
+                      mb="1rem"
+                      color={darkMode ? "white" : "black"}
+                    >
+                      {country.name.common}
+                    </Heading>
+                    <Text color={darkMode ? "white" : "black"}>
+                      Population: {country.population}
+                    </Text>
+                    <Text color={darkMode ? "white" : "black"}>
+                      Region: {country.region}
+                    </Text>
+                    <Text color={darkMode ? "white" : "black"}>
+                      Capital: {country.capital}
+                    </Text>
+                    <Text color={darkMode ? "white" : "black"}>
+                      Currency{" "}
+                      {country.currencies &&
+                        Object.entries(country.currencies).map(
+                          ([item, index]) => item
+                        )}
+                    </Text>
+                  </Box>
+                </Container>
               </WrapItem>
             ))
           ) : (
@@ -272,6 +279,11 @@ const HomePage = () => {
                 borderRadius="0.4rem"
                 bg={darkMode ? "gray.800" : "white"}
                 ml={".5rem"}
+                transition="transform 0.3s ease"
+                _hover={{ bg: "gray.200", transform: "scale(1.05)" }}
+                onClick={() =>
+                  navigate(`/CountryDeatail/${country.name.common}`)
+                }
               >
                 <Box>
                   <Image
