@@ -108,7 +108,6 @@ const Home = () => {
     setSelectedRegion(value);
   };
 
-  // JSX
   return (
     <div className={`container ${darkMode ? "dark-mode" : ""}`}>
       <div>
