@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./App.css";
 
 import Card from "./components/Card";
@@ -165,19 +166,21 @@ export const App = () => {
 
   const cardui = countries.map((item, index) => {
     return (
-      <Card
-        key={index}
-        imgurl={item.flags.png}
-        countryname={item.name.common}
-        population={item.population}
-        region={item.region}
-        capital={item.capital}
-        currency={
-          item.currencies && Object.keys(item.currencies).length > 0
-            ? Object.keys(item.currencies)[0]
-            : null // or any other value you want to use for empty currencies
-        }
-      />
+      <Link key={index} to={`/${item.cca2}`}>
+     
+        <Card
+          imgurl={item.flags.png}
+          countryname={item.name.common}
+          population={item.population}
+          region={item.region}
+          capital={item.capital}
+          currency={
+            item.currencies && Object.keys(item.currencies).length > 0
+              ? Object.keys(item.currencies)[0]
+              : null
+          }
+        />
+      </Link>
     );
   });
 
@@ -215,17 +218,6 @@ export const App = () => {
               </option>
             ))}
           </select>
-
-          {/* <select name="region">
-            <option selected disabled>
-              Any Region...
-            </option>
-            {region.map((reg, index) => (
-              <option key={index} value={reg}>
-                {reg}
-              </option>
-            ))}
-          </select> */}
 
           <select name="region" onChange={handleRegion} value={reg}>
             <option selected disabled>

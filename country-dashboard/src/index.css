@@ -5,8 +5,7 @@ h3,
 h4,
 h5,
 h6,
-p
- {
+p {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
@@ -16,10 +15,9 @@ html {
   max-width: 1280px;
   margin: auto;
 }
-body
-{
- max-width:1100px;
- margin: auto;
+body {
+  max-width: 1100px;
+  margin: auto;
 }
 
 .App {
@@ -34,11 +32,9 @@ body
   gap: 20px;
   padding-left: 50px;
 }
-.header-Search
-{
+.header-Search {
   display: flex;
   gap: 20px;
-
 }
 .main-Content {
   display: flex;
@@ -60,6 +56,62 @@ body
   gap: 5px;
 }
 .card-flag img {
-  width: 180px;
+  max-width: 180px;
   height: 80px;
+}
+
+span,
+h5,
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.countrydata {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 7rem;
+}
+.card--ui2 {
+  display: flex;
+  gap: 6rem;
+}
+
+.card--ui2 .card-flag img {
+  width: 580px;
+  height: auto;
+}
+.card-flag2 img {
+  max-width: 480px;
+  min-height: 290px;
+}
+
+h5.state-name2 {
+  font-size: 21px;
+  font-family: "Inter", sans-serif;
+}
+.card-text2 span {
+  font-size: 20px;
+  font-family: "Inter", sans-serif;
+}
+.card-text2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.card-text2 div {
+  display: flex;
+  gap: 1rem;
+}
+.countryname span {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+}
+
+.countryname {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
