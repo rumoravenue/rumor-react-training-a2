@@ -1,13 +1,117 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  max-width: 1280px;
+  margin: auto;
+}
+body {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 50px;
+}
+.header-Search {
+  display: flex;
+  gap: 20px;
+}
+.main-Content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.card--ui {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  gap: 10px;
+  border: 1px solid black;
+  padding: 10px;
+}
+.card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.card-flag img {
+  max-width: 180px;
+  height: 80px;
+}
+
+span,
+h5,
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.countrydata {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 7rem;
+}
+.card--ui2 {
+  display: flex;
+  gap: 6rem;
+}
+
+.card--ui2 .card-flag img {
+  width: 580px;
+  height: auto;
+}
+.card-flag2 img {
+  max-width: 480px;
+  min-height: 290px;
+}
+
+h5.state-name2 {
+  font-size: 21px;
+  font-family: "Inter", sans-serif;
+}
+.card-text2 span {
+  font-size: 20px;
+  font-family: "Inter", sans-serif;
+}
+.card-text2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.card-text2 div {
+  display: flex;
+  gap: 1rem;
+}
+.countryname span {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+}
+
+.countryname {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
